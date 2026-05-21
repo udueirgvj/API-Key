@@ -34,10 +34,8 @@
 </div>
 
 <script>
-    // عند الرفع على خادم حقيقي مستقبلاً تقوم بتغيير هذا الرابط لرابط السيرفر الخاص بك
-    const API_URL = 'const API_URL = 'const API_URL = 'https://api-key-kappa.vercel.app/api/chat';
-';
-';
+    // الرابط المباشر الصحيح لسيرفر Vercel الخاص بك
+    const API_URL = 'https://api-key-kappa.vercel.app/api/chat';
 
     async function sendMessage() {
         const inputElement = document.getElementById('userInput');
@@ -59,13 +57,13 @@
             });
 
             const data = await response.json();
-            if (response.ok) {
+            if (response.ok && data.reply) {
                 appendMessage(data.reply, 'ai-message');
             } else {
-                appendMessage(data.error || 'حدث خطأ ما', 'error-message');
+                appendMessage(data.error || 'حدث خطأ في جلب الرد.', 'error-message');
             }
         } catch (error) {
-            appendMessage('تأكد من تشغيل السيرفر المحلي الحامي للمفتاح (server.js)', 'error-message');
+            appendMessage('فشل الاتصال بالسيرفر أونلاين.', 'error-message');
         } finally {
             inputElement.disabled = false;
             sendBtn.disabled = false;
